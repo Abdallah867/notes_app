@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
-class CustomSearchIcon extends StatelessWidget {
-  const CustomSearchIcon({
+class CustomIcon extends StatelessWidget {
+  final IconData icon;
+  const CustomIcon({
     super.key,
+    required this.icon,
   });
 
   @override
@@ -18,9 +20,9 @@ class CustomSearchIcon extends StatelessWidget {
             color: Colors.grey[800]!.withOpacity(0.6),
             borderRadius: BorderRadius.circular(10),
           ),
-          child: const Padding(
+          child: Padding(
             padding: EdgeInsets.all(4.0),
-            child: Icon(Icons.search),
+            child: Icon(icon),
           ),
         ),
       ),
