@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/widgets/edit_note_body.dart';
 
 import '../constants.dart';
 import '../widgets/custom_icon.dart';
@@ -20,6 +21,7 @@ class EditNoteView extends StatelessWidget {
           ),
         ],
       ),
+      body: const EditNoteBody(),
     );
   }
 }
