@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_app/cubits/notes_cubit/notes_cubit.dart';
+import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/edit_note_view.dart';
 import 'package:notes_app/widgets/custom_text.dart';
 
 class NoteCard extends StatelessWidget {
+  final NoteModel? note;
   const NoteCard({
     super.key,
+    required this.note,
   });
 
   @override
@@ -12,7 +17,7 @@ class NoteCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const EditNoteView()),
+          MaterialPageRoute(builder: (context) => EditNoteView(note: note!)),
         );
       },
       child: Column(
@@ -22,7 +27,7 @@ class NoteCard extends StatelessWidget {
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.yellow[200],
+                color: Color(note!.color),
                 borderRadius: BorderRadius.circular(16.0),
               ),
               child: Padding(
@@ -37,15 +42,18 @@ class NoteCard extends StatelessWidget {
                           constraints: const BoxConstraints(
                             maxWidth: 200.0,
                           ),
-                          child: const CustomText(
-                            text: "Flutter Tips",
+                          child: CustomText(
+                            text: note!.title,
                             fontSize: 22.0,
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 16.0),
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              note?.delete();
+                              BlocProvider.of<NotesCubit>(context).getNotes();
+                            },
                             icon: const Icon(
                               Icons.delete,
                               color: Colors.black,
@@ -59,21 +67,21 @@ class NoteCard extends StatelessWidget {
                       constraints: const BoxConstraints(
                         maxWidth: 200,
                       ),
-                      child: const CustomText(
-                        text: "Build your career with Abdallah Mohellebi",
+                      child: CustomText(
+                        text: note!.content,
                         fontSize: 16.0,
-                        color: Color.fromARGB(255, 110, 110, 110),
+                        color: const Color.fromARGB(255, 110, 110, 110),
                       ),
                     ),
                     const SizedBox(
                       height: 20.0,
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         CustomText(
-                          text: "Sep 20, 2023",
-                          color: Color.fromARGB(255, 110, 110, 110),
+                          text: note!.date,
+                          color: const Color.fromARGB(255, 110, 110, 110),
                         ),
                       ],
                     )

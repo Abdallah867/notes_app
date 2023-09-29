@@ -14,6 +14,7 @@ class NotesView extends StatelessWidget {
         onPressed: () {
           showModalBottomSheet(
             context: context,
+            isScrollControlled: true,
             builder: (BuildContext context) => const AddNoteBottomSheet(),
           );
         },
@@ -29,9 +30,10 @@ class NotesView extends StatelessWidget {
           padding: EdgeInsets.only(left: space),
           child: Text("Notes"),
         ),
-        actions: const [
+        actions: [
           CustomIcon(
             icon: Icons.search,
+            onPressed: () {},
           ),
         ],
       ),
